@@ -11,16 +11,17 @@ export default function FeedbackList() {
   const feedbackItems = useFilteredFeedbackItems(); 
 
   return (
-    <ol className="feedback-list">
-      {isLoading ? <Spinner /> : null}
+  <ol className="feedback-list">
+    {isLoading ? (
+      <Spinner />
+    ) : errorMessage ? (
+      <ErrorMessage message={errorMessage} />
+    ) : (
+      feedbackItems.map((feedbackItem: TFeedbackItem) => (
+        <FeedbackItem key={feedbackItem.id} feedbackItem={feedbackItem} />
+      ))
+    )}
+  </ol>
+);
 
-      {errorMessage ? <ErrorMessage message={errorMessage} /> : null}
-
-      {feedbackItems.map((feedbackItem: TFeedbackItem) => {
-        return (
-          <FeedbackItem key={feedbackItem.id} feedbackItem={feedbackItem} />
-        );
-      })}
-    </ol>
-  );
 }
